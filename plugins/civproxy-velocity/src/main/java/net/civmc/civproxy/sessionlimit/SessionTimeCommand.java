@@ -28,6 +28,13 @@ final class SessionTimeCommand implements SimpleCommand {
         player.sendMessage(Component.text(describe(player), NamedTextColor.YELLOW));
     }
 
+    @Override
+    public boolean hasPermission(final Invocation invocation) {
+        // Don't tell players about a limit that isn't being enforced yet
+        return !this.manager.config().dryRun()
+            || invocation.source().hasPermission(SessionLimitManager.ADMIN_PERMISSION);
+    }
+
     private String describe(final Player player) {
         final SessionLimitConfig config = this.manager.config();
         if (player.hasPermission(SessionLimitManager.BYPASS_PERMISSION)) {

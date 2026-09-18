@@ -180,7 +180,7 @@ public final class SessionLimitManager {
         if (queue == null) {
             return false;
         }
-        for (final QueuePlayer queued : queue.getQueue()) {
+        for (final QueuePlayer queued : queue.getQueueHolder().getAllPlayers()) {
             // ajQueue keeps disconnected players' places for a while; only count people actually waiting
             if (queued.getPlayer() != null) {
                 return true;
